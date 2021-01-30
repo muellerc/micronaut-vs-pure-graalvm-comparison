@@ -46,7 +46,7 @@ for i in {1..10}; do aws lambda update-function-configuration --function-name $F
 
 After a successful execution, open your [AWS X-Ray Console](https://console.aws.amazon.com/xray/home) and find your trace with the lowest cold-start (Initialization) time for this AWS Lambda function. For me, it was 424 ms as you can see below:  
 
-![X-Ray Trace](/image/micronaut-app/x-ray.png)
+![X-Ray Trace](/micronaut-app/image/x-ray.png)
 
 Let's also have a look at other interesting data:  
 
@@ -54,7 +54,7 @@ Let's also have a look at other interesting data:
 - Max Memory Used: 152 MB (lowest amount for all 10 executions)  
 - Billed Duration: 808 ms (fasted overall execution for a cold-start)  
 
-![CloudWatch Logs](/image/micronaut-app/cloud-watch-logs.png)
+![CloudWatch Logs](/micronaut-app/image/cloud-watch-logs.png)
 
 It has to be faster...
 
@@ -107,7 +107,7 @@ for i in {1..10}; do aws lambda update-function-configuration --function-name $F
 
 After a successful execution, open your [AWS X-Ray Console](https://console.aws.amazon.com/xray/home) and find your trace with the lowest cold-start (Initialization) time for this AWS Lambda function. For me, it was 153 ms as you can see below:  
 
-![X-Ray Trace](/image/pure-graalvm-app/x-ray.png)
+![X-Ray Trace](/pure-graalvm-app/image/x-ray.png)
 
 Let's also have a look at other interesting data:  
 
@@ -115,7 +115,7 @@ Let's also have a look at other interesting data:
 - Max Memory Used: 50 MB (lowest amount for all 10 executions)  
 - Billed Duration: 254 ms (fasted overall execution for a cold-start)  
 
-![CloudWatch Logs](/image/pure-graalvm-app/cloud-watch-logs.png)
+![CloudWatch Logs](/pure-graalvm-app/image/cloud-watch-logs.png)
 
 Cool! But let's make it even better!
 
@@ -168,7 +168,7 @@ for i in {1..10}; do aws lambda update-function-configuration --function-name $F
 
 After a successful execution, open your [AWS X-Ray Console](https://console.aws.amazon.com/xray/home) and find your trace with the lowest cold-start (Initialization) time for this AWS Lambda function. For me, it was 144 ms as you can see below:  
 
-![X-Ray Trace](/image/pure-graalvm-app-eager-init/x-ray.png)
+![X-Ray Trace](/pure-graalvm-app-eager-init/image/x-ray.png)
 
 Let's also have a look at other interesting data:  
 
@@ -176,6 +176,6 @@ Let's also have a look at other interesting data:
 - Max Memory Used: 50 MB (lowest amount for all 10 executions)  
 - Billed Duration: 147 ms (fasted overall execution for a cold-start)  
 
-![CloudWatch Logs](/image/pure-graalvm-app-eager-init/cloud-watch-logs.png)
+![CloudWatch Logs](/pure-graalvm-app-eager-init/image/cloud-watch-logs.png)
 
 Yes, we could lower even further the perceive latency of our users by initializing the Jackson library during the function initialisation! Why? During initialization, Lambda can take advantage of burst CPU credits, no matter the memory settings for the function.   
