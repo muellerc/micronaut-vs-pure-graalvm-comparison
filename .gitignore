@@ -1,3 +1,6 @@
 target/
+build/
 
 .DS_Store
+response.json
+samconfig.toml

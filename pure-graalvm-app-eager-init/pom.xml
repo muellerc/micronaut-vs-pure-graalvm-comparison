@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.aws.example.cmr</groupId>
-    <artifactId>pure-graalvm-app</artifactId>
+    <artifactId>pure-graalvm-app-eager-init</artifactId>
     <packaging>jar</packaging>
     <version>1.0.0-SNAPSHOT</version>
 
@@ -64,7 +64,7 @@
                 </executions>
                 <configuration>
                     <skip>false</skip>
-                    <imageName>pure-graalvm-app</imageName>
+                    <imageName>pure-graalvm-app-eager-init</imageName>
                     <buildArgs>
                         --no-fallback --enable-http --no-server --initialize-at-build-time=com.fasterxml.jackson.annotation.JsonProperty$Access
                     </buildArgs>

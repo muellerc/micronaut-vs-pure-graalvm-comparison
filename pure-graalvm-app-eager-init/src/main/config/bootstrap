@@ -1,0 +1,4 @@
+#!/bin/sh
+set -euo pipefail
+
+./pure-graalvm-app-eager-init -Djava.library.path=$(pwd)

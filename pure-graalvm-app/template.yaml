@@ -1,0 +1,18 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+
+Resources:
+  PureGraalVMApp:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: does.not.matter
+      Runtime: provided
+      CodeUri: target/function.zip
+      MemorySize: 256
+      Timeout: 10
+      Tracing: Active
+
+Outputs:
+  PureGraalVMAppName:
+    Description: The name of our PureGraalVMApp function
+    Value: !Ref PureGraalVMApp
