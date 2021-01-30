@@ -44,15 +44,15 @@ Now, let's run 10 test, where we force a cold-start by updating the environment 
 for i in {1..10}; do aws lambda update-function-configuration --function-name $FUNCTION_NAME --environment "Variables={ForceReload=Value$i}" --output text; aws lambda invoke --function-name $FUNCTION_NAME --cli-binary-format raw-in-base64-out --payload '{"body": "{\"name\": \"Serverless\"}", "resource": "/", "path": "/", "httpMethod": "POST", "isBase64Encoded": false, "queryStringParameters": {}, "multiValueQueryStringParameters": {}, "pathParameters": {}, "stageVariables": {}, "headers": {}}' response.json; done
 ```
 
-After a successful execution, open your [AWS X-Ray Console](https://console.aws.amazon.com/xray/home) and find your trace with the lowest cold-start (Initialization) time for this AWS Lambda function. For me, it was 424 ms as you can see below:  
+After a successful execution, open your [AWS X-Ray Console](https://console.aws.amazon.com/xray/home) and find your trace with the lowest cold-start (Initialization) time for this AWS Lambda function. For me, it was **424 ms** as you can see below:  
 
 ![X-Ray Trace](/micronaut-app/image/x-ray.png)
 
 Let's also have a look at other interesting data:  
 
-- Deployment size 17.8 MB  
-- Max Memory Used: 152 MB (lowest amount for all 10 executions)  
-- Billed Duration: 808 ms (fasted overall execution for a cold-start)  
+- Deployment size: **17.8 MB**  
+- Max Memory Used: **152 MB** (lowest amount for all 10 executions)  
+- Billed Duration: **808 ms** (fasted overall execution for a cold-start)  
 
 ![CloudWatch Logs](/micronaut-app/image/cloud-watch-logs.png)
 
@@ -105,15 +105,15 @@ Now, let's run 10 test, where we force a cold-start by updating the environment 
 for i in {1..10}; do aws lambda update-function-configuration --function-name $FUNCTION_NAME --environment "Variables={ForceReload=Value$i}" --output text; aws lambda invoke --function-name $FUNCTION_NAME --cli-binary-format raw-in-base64-out --payload '{"body": "{\"name\": \"Serverless\"}", "resource": "/", "path": "/", "httpMethod": "POST", "isBase64Encoded": false, "queryStringParameters": {}, "multiValueQueryStringParameters": {}, "pathParameters": {}, "stageVariables": {}, "headers": {}}' response.json; done
 ```
 
-After a successful execution, open your [AWS X-Ray Console](https://console.aws.amazon.com/xray/home) and find your trace with the lowest cold-start (Initialization) time for this AWS Lambda function. For me, it was 153 ms as you can see below:  
+After a successful execution, open your [AWS X-Ray Console](https://console.aws.amazon.com/xray/home) and find your trace with the lowest cold-start (Initialization) time for this AWS Lambda function. For me, it was **153 ms** as you can see below:  
 
 ![X-Ray Trace](/pure-graalvm-app/image/x-ray.png)
 
 Let's also have a look at other interesting data:  
 
-- Deployment size 5.5 MB  
-- Max Memory Used: 50 MB (lowest amount for all 10 executions)  
-- Billed Duration: 254 ms (fasted overall execution for a cold-start)  
+- Deployment size: **5.5 MB**  
+- Max Memory Used: **50 MB** (lowest amount for all 10 executions)  
+- Billed Duration: **254 ms** (fasted overall execution for a cold-start)  
 
 ![CloudWatch Logs](/pure-graalvm-app/image/cloud-watch-logs.png)
 
@@ -166,16 +166,16 @@ Now, let's run 10 test, where we force a cold-start by updating the environment 
 for i in {1..10}; do aws lambda update-function-configuration --function-name $FUNCTION_NAME --environment "Variables={ForceReload=Value$i}" --output text; aws lambda invoke --function-name $FUNCTION_NAME --cli-binary-format raw-in-base64-out --payload '{"body": "{\"name\": \"Serverless\"}", "resource": "/", "path": "/", "httpMethod": "POST", "isBase64Encoded": false, "queryStringParameters": {}, "multiValueQueryStringParameters": {}, "pathParameters": {}, "stageVariables": {}, "headers": {}}' response.json; done
 ```
 
-After a successful execution, open your [AWS X-Ray Console](https://console.aws.amazon.com/xray/home) and find your trace with the lowest cold-start (Initialization) time for this AWS Lambda function. For me, it was 144 ms as you can see below:  
+After a successful execution, open your [AWS X-Ray Console](https://console.aws.amazon.com/xray/home) and find your trace with the lowest cold-start (Initialization) time for this AWS Lambda function. For me, it was **144 ms** as you can see below:  
 
 ![X-Ray Trace](/pure-graalvm-app-eager-init/image/x-ray.png)
 
 Let's also have a look at other interesting data:  
 
-- Deployment size 5.5 MB  
-- Max Memory Used: 50 MB (lowest amount for all 10 executions)  
-- Billed Duration: 147 ms (fasted overall execution for a cold-start)  
+- Deployment size: **5.5 MB**  
+- Max Memory Used: **50 MB** (lowest amount for all 10 executions)  
+- Billed Duration: **147 ms** (fasted overall execution for a cold-start)  
 
 ![CloudWatch Logs](/pure-graalvm-app-eager-init/image/cloud-watch-logs.png)
 
-Yes, we could lower even further the perceive latency of our users by initializing the Jackson library during the function initialisation! Why? During initialization, Lambda can take advantage of burst CPU credits, no matter the memory settings for the function.   
+Yes, we could lower even further the perceived latency of our users by initializing the Jackson library during the function initialisation! Why? During initialization, Lambda can take advantage of burst CPU credits, no matter the memory settings for the function.  
